@@ -27,7 +27,7 @@ describe('Session', () => {
     expect(response.body).toHaveProperty('token');
   });
 
-  it('should not be created if user is not on database', async () => {
+  it('should NOT be created if user is NOT on database', async () => {
     const user = await factory.attrs('User');
 
     const response = await request(app)
@@ -41,7 +41,7 @@ describe('Session', () => {
     expect(response.body).toHaveProperty('error', 'User not found');
   });
 
-  it('should not be created if password is not correct', async () => {
+  it('should NOT be created if password is NOT correct', async () => {
     const user = await factory.attrs('User');
 
     await request(app)
@@ -59,7 +59,7 @@ describe('Session', () => {
     expect(response.body).toHaveProperty('error', 'Password does not match');
   });
 
-  it('should not be created if email is not informed', async () => {
+  it('should NOT be created if email is NOT informed', async () => {
     const user = await factory.attrs('User');
 
     await request(app)
@@ -76,7 +76,7 @@ describe('Session', () => {
     expect(response.body.messages[0].message).toBe('email is a required field');
   });
 
-  it('should not be created if password is not informed', async () => {
+  it('should NOT be created if password is NOT informed', async () => {
     const user = await factory.attrs('User');
 
     await request(app)
