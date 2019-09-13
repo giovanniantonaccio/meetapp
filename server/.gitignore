@@ -1,5 +1,6 @@
 node_modules
 .env
+.DS_Store
 
 tmp/*
 !tmp/.gitkeep
@@ -8,3 +9,4 @@ dist
 
 __tests__/coverage
 __tests__/database.sqlite
+__tests__/.DS_Store
