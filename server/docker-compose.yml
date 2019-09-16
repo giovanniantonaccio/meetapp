@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  server:
+    build:
+      dockerfile: ./docker/server.dockerfile
+      context: .
+    image: meetapp/server
+    container_name: meetapp-server
+    ports:
+      - 3334:3333
+    networks:
+      - meetapp_network
+    depends_on:
+      - postgres
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+
+  postgres:
+    image: postgres
+    container_name: meetapp-postgres
+    restart: always
+    ports:
+      - '5433:5432'
+    networks:
+      - meetapp_network
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASS
+      POSTGRES_DB: $DB_NAME
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  meetapp_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
