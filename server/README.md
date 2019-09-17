@@ -47,6 +47,11 @@ Now you only need to run the application (docker-compose will create all contain
 docker-compose up -d
 ```
 
+To run all tests you just need to use:
+```bash
+yarn test
+```
+
 ## :books: Technologies
 
 This project was developed with the following technologies:
