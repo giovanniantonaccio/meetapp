@@ -11,7 +11,13 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => res.json({ message: 'Welcome to Omni CLI' }));
+routes.get('/', (req, res) =>
+  res.json({
+    message: 'Welcome to meetapp API',
+    documentation:
+      'https://app.swaggerhub.com/apis-docs/giovanniantonaccio/Meetapp/1.0.0',
+  })
+);
 
 routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
