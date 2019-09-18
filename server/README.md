@@ -17,6 +17,11 @@ This application has the following functionalities:
 - Authentication middleware for session control
 - Password cryptograpy
 
+
+## :notebook: Documentation
+
+You can find the documentation for this API on [Swagger Hub](https://app.swaggerhub.com/apis-docs/giovanniantonaccio/Meetapp/1.0.0)
+
 ## :rocket: Installation
 
 > I'm suposing you have Docker and Docker-Compose installed on your machine. If not, you can follow the tutorial here: [Docker Instalation](https://docs.docker.com/install/).
