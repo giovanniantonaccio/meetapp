@@ -2,6 +2,6 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-export default function NotFound() {
-  return <h1>Page not found</h1>;
+export default function Dashboard() {
+  return <h1>Dashboard</h1>;
 }
