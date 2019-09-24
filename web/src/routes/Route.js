@@ -10,7 +10,7 @@ export default function RouteWrapper({
   isPrivate,
   ...rest
 }) {
-  const signed = true;
+  const signed = false;
 
   /**
    * Redirect user to SignIn page if he tries to access a private route
