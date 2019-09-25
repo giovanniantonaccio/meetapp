@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import { object, string } from 'yup';
+
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import logo from '../../assets/logo.svg';
 
@@ -15,8 +18,11 @@ const schema = object().shape({
 });
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
   function handleSubmit({ email, password }) {
-    console.tron.log(email, password);
+    dispatch(signInRequest(email, password));
   }
 
   return (
@@ -30,7 +36,7 @@ export default function SignIn() {
           type="password"
           placeholder="Digite a sua senha"
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
         <Link to="/register">Criar conta</Link>
       </Form>
     </>

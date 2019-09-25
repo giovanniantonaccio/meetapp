@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import { object, string } from 'yup';
 
 import logo from '../../assets/logo.svg';
+
+import { signUpRequest } from '../../store/modules/auth/actions';
 
 const schema = object().shape({
   name: string().required('O nome é obrigatório'),
@@ -16,8 +19,10 @@ const schema = object().shape({
 });
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+
   function handleSubmit({ name, email, password }) {
-    console.tron.log(name, email, password);
+    dispatch(signUpRequest(name, email, password));
   }
 
   return (
@@ -32,7 +37,7 @@ export default function SignUp() {
           type="password"
           placeholder="Digite a sua senha"
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">Criar conta</button>
         <Link to="/">Já tenho conta</Link>
       </Form>
     </>
