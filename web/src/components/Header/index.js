@@ -14,23 +14,21 @@ export default function Header() {
 
   return (
     <Container>
-      <Content>
-        <Link to="/dashboard">
-          <img src={logo} alt="logo" />
-        </Link>
+      <Link to="/dashboard">
+        <img src={logo} alt="logo" />
+      </Link>
 
-        <aside>
-          <div>
-            <strong>{user.name}</strong>
-            <Link to="/profile">
-              <p>Meu perfil</p>
-            </Link>
-          </div>
-          <button type="button" onClick={() => dispatch(signOut())}>
-            Sair
-          </button>
-        </aside>
-      </Content>
+      <aside>
+        <div>
+          <strong>{user.name}</strong>
+          <Link to="/profile">
+            <p>Meu perfil</p>
+          </Link>
+        </div>
+        <button type="button" onClick={() => dispatch(signOut())}>
+          Sair
+        </button>
+      </aside>
     </Container>
   );
 }
