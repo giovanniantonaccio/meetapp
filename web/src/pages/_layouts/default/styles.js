@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  max-width: 315px;
+  max-width: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,14 +19,15 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 5rem;
 
     input {
-      height: 50px;
-      border-radius: 4px;
+      height: 5rem;
+      border-radius: 0.4rem;
+      font-size: 1.4rem;
       background-color: rgba(0, 0, 0, 0.2);
-      padding: 0 20px;
-      margin-bottom: 10px;
+      padding: 0 2rem;
+      margin-bottom: 1rem;
       color: #fff;
       -webkit-transition-delay: 9999s;
 
@@ -36,11 +37,11 @@ export const Content = styled.div`
     }
 
     button {
-      height: 50px;
-      border-radius: 4px;
+      height: 5rem;
+      border-radius: 0.4rem;
       background-color: #f94d6a;
-      margin: 5px 0 20px;
-      font-size: 18px;
+      margin: 0.5rem 0 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: #ffffff;
 
@@ -53,7 +54,7 @@ export const Content = styled.div`
   a {
     width: 100%;
     text-align: center;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: bold;
     color: rgba(255, 255, 255, 0.6);
 
@@ -65,7 +66,7 @@ export const Content = styled.div`
   span {
     color: #f94d6a;
     align-self: flex-start;
-    margin: 0 0 10px;
+    margin: 0 0 1rem;
     font-weight: bold;
   }
 `;
