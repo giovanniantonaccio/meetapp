@@ -58,6 +58,7 @@ export const Container = styled.div`
       border-radius: 0.4rem;
       font-weight: bold;
       font-size: 1.6rem;
+      line-height: 1rem;
 
       &:hover {
         background: ${darken(0.04, '#d44059')};
