@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdAddCircleOutline, MdKeyboardArrowRight } from 'react-icons/md';
 import { Container } from './styles';
 
@@ -18,14 +19,18 @@ export default function Dashboard() {
             <strong>Meetup de React Native</strong>
             <p>24 de Junho, às 20h</p>
           </div>
-          <MdKeyboardArrowRight />
+          <Link to="/details/1">
+            <MdKeyboardArrowRight />
+          </Link>
         </li>
         <li>
           <div>
             <strong>Flutter talks</strong>
             <p>24 de Junho, às 20h</p>
           </div>
-          <MdKeyboardArrowRight />
+          <Link to="/details/2">
+            <MdKeyboardArrowRight />
+          </Link>
         </li>
         <li>
           <div>
@@ -35,7 +40,9 @@ export default function Dashboard() {
             </strong>
             <p>24 de Setembro, às 20h</p>
           </div>
-          <MdKeyboardArrowRight />
+          <Link to="/details/3">
+            <MdKeyboardArrowRight />
+          </Link>
         </li>
       </ul>
     </Container>
