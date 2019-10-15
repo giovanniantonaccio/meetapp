@@ -1,13 +1,15 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { MdEdit, MdDeleteForever, MdToday, MdPinDrop } from 'react-icons/md';
 import { Container } from './styles';
 
-export default function Details() {
+export default function Details({ location }) {
+  const { event } = location.state;
+  console.tron.log(event);
   return (
     <Container>
       <div className="detailsHeader">
-        <h1>Meetup de React Native</h1>
+        <h1>{event.title}</h1>
         <div className="buttonRow">
           <button type="button" className="edit">
             <MdEdit />
@@ -20,31 +22,35 @@ export default function Details() {
         </div>
       </div>
 
-      <img
-        src="https://camunda.com/img/events/meetup-example.jpg"
-        alt="meetup"
-      />
+      <img src={event.image} alt="meetup" />
 
-      <p>
-        O Meetup de React Native é um evento que reúne a comunidade de
-        desenvolvimento mobile utilizando React a fim de compartilhar
-        conhecimento. Todos são convidados.
-        <br />
-        <br />
-        Caso queira participar como palestrante do meetup envie um e-mail para
-        organizacao@meetuprn.com.br.
-      </p>
+      <p>{event.description}</p>
 
       <div className="detailsFooter">
         <div className="date">
           <MdToday />
-          <span>24 de junho, às 20h</span>
+          <span>{event.date}</span>
         </div>
         <div className="location">
           <MdPinDrop />
-          <span>Rua Guilherme Gembala, 260</span>
+          <span>{event.address}</span>
         </div>
       </div>
     </Container>
   );
 }
+
+Details.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      event: PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        image: PropTypes.string,
+        description: PropTypes.string,
+        date: PropTypes.string,
+        address: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
+};

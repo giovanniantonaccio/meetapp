@@ -2,48 +2,64 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdAddCircleOutline, MdKeyboardArrowRight } from 'react-icons/md';
 import { Container } from './styles';
+import history from '../../services/history';
+
+const events = [
+  {
+    id: 1,
+    title: 'Flutter talks',
+    date: '24 de Junho, às 20h',
+    image: 'https://camunda.com/img/events/meetup-example.jpg',
+    description:
+      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
+    address: 'Rua Guilherme Gembala, 260',
+  },
+  {
+    id: 2,
+    title: 'React Native',
+    date: '24 de Junho, às 20h',
+    image: 'https://camunda.com/img/events/meetup-example.jpg',
+    description:
+      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
+    address: 'Rua Guilherme Gembala, 260',
+  },
+  {
+    id: 3,
+    title: 'NodeJS',
+    date: '24 de Junho, às 20h',
+    image: 'https://camunda.com/img/events/meetup-example.jpg',
+    description:
+      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
+    address: 'Rua Guilherme Gembala, 260',
+  },
+];
 
 export default function Dashboard() {
+  function handleDetails(event) {
+    history.push('/details', { event });
+  }
+
   return (
     <Container>
       <div>
         <h1>Meus meetups</h1>
-        <button type="button">
-          <MdAddCircleOutline />
-          Novo meetup
-        </button>
+        <Link to="meetup/1">
+          <button type="button">
+            <MdAddCircleOutline />
+            Novo meetup
+          </button>
+        </Link>
       </div>
       <ul>
-        <li>
-          <div>
-            <strong>Meetup de React Native</strong>
-            <p>24 de Junho, às 20h</p>
-          </div>
-          <Link to="/details/1">
-            <MdKeyboardArrowRight />
-          </Link>
-        </li>
-        <li>
-          <div>
-            <strong>Flutter talks</strong>
-            <p>24 de Junho, às 20h</p>
-          </div>
-          <Link to="/details/2">
-            <MdKeyboardArrowRight />
-          </Link>
-        </li>
-        <li>
-          <div>
-            <strong>
-              Titulo muito grande de varias linhas que nao cabe em uma linha e
-              precisa quebrar em varias linhas
-            </strong>
-            <p>24 de Setembro, às 20h</p>
-          </div>
-          <Link to="/details/3">
-            <MdKeyboardArrowRight />
-          </Link>
-        </li>
+        {events.map(event => (
+          <li key={event.id}>
+            <div>
+              <strong>{event.title}</strong>
+              <p>{event.date}</p>
+            </div>
+            <MdKeyboardArrowRight onClick={() => handleDetails(event)} />
+          </li>
+        ))}
       </ul>
     </Container>
   );

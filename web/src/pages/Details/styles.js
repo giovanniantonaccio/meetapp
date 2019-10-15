@@ -86,6 +86,11 @@ export const Container = styled.div`
     align-items: center;
     margin-top: 3rem;
 
+    div {
+      display: flex;
+      align-items: center;
+    }
+
     div.location {
       margin-left: 3rem;
     }
