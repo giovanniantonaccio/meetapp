@@ -22,6 +22,7 @@ export const Container = styled.div`
     margin-top: 5rem;
 
     input {
+      width: 100%;
       height: 5rem;
       border-radius: 0.4rem;
       font-size: 1.4rem;
@@ -52,7 +53,7 @@ export const Container = styled.div`
       }
     }
 
-    button {
+    button.saveButton {
       height: 5rem;
       border-radius: 0.4rem;
       background-color: #f94d6a;

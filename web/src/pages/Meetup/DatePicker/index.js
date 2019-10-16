@@ -1,56 +1,43 @@
-import React, { useState, useRef, useEffect } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import ptBr from 'date-fns/locale/pt-BR';
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-
+import React, { useRef, useEffect, useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
+import pt from 'date-fns/locale/pt';
 import { useField } from '@rocketseat/unform';
 
-const customTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#f94d6a',
-    },
-  },
-});
+import 'react-datepicker/dist/react-datepicker.css';
 
-export default function CustomizedDatePicker({ name }) {
+export default function DatePicker({ name, placeholder }) {
   const ref = useRef(null);
-  const { fieldName, defaultValue, registerField } = useField(name);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const [selected, setSelected] = useState(defaultValue);
 
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: ref.current,
-      path: 'props.value',
+      path: 'props.selected',
+      clearValue: pickerRef => {
+        pickerRef.clear();
+      },
     });
-    // eslint-disable-line
-  }, [fieldName, registerField]);
-
-  useEffect(() => {
-    console.tron.log('Data selecionada', selectedDate);
-  }, [selectedDate]);
+    // eslint-disable-next-line
+  }, [ref.current, fieldName]);
 
   return (
-    <ThemeProvider theme={customTheme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBr}>
-        <DatePicker
-          autoOk
-          variant="inline"
-          format="dd 'de' MMMM 'de' yyyy"
-          theme="green"
-          minDate={new Date()}
-          InputProps={{
-            disableUnderline: true,
-          }}
-          name={fieldName}
-          ref={ref}
-          value={selectedDate}
-          onChange={date => setSelectedDate(date)}
-        />
-      </MuiPickersUtilsProvider>
-    </ThemeProvider>
+    <>
+      <ReactDatePicker
+        name={fieldName}
+        selected={selected}
+        onChange={date => setSelected(date)}
+        minDate={new Date()}
+        showTimeSelect
+        timeFormat="p"
+        dateFormat="Pp"
+        locale={pt}
+        ref={ref}
+        placeholderText={placeholder}
+        autoComplete="off"
+      />
+      {error && <span>{error}</span>}
+    </>
   );
 }

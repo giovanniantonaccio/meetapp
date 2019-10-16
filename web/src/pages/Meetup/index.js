@@ -4,8 +4,9 @@ import { Form, Input } from '@rocketseat/unform';
 
 import { Container } from './styles';
 import DatePicker from './DatePicker';
+// import ReactDatePicker from './ReactDatePicker';
 
-const schema = null;
+// const schema = null;
 
 export default function Meetup() {
   function handleSubmit(data) {
@@ -15,7 +16,7 @@ export default function Meetup() {
 
   return (
     <Container>
-      <Form schema={schema} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input name="title" type="text" placeholder="Título do meetup" />
         <Input
           name="description"
@@ -23,11 +24,12 @@ export default function Meetup() {
           multiline
           placeholder="Descrição completa"
         />
-        <DatePicker name="date" />
+        <DatePicker name="date" placeholder="Data do meetup" className="date" />
 
-        {/* <Input name="date" type="date" placeholder="Data do meetup" /> */}
         <Input name="address" type="text" placeholder="Localização" />
-        <button type="submit">Salvar</button>
+        <button type="submit" className="saveButton">
+          Salvar
+        </button>
       </Form>
     </Container>
   );
