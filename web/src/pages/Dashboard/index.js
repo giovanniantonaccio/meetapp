@@ -43,7 +43,7 @@ export default function Dashboard() {
     <Container>
       <div>
         <h1>Meus meetups</h1>
-        <Link to="meetup/1">
+        <Link to="meetup">
           <button type="button">
             <MdAddCircleOutline />
             Novo meetup
