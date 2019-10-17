@@ -59,10 +59,20 @@ export const Container = styled.div`
 
       button.edit {
         background: #4dbaf9;
+
+        :disabled {
+          opacity: 0.5;
+          cursor: auto;
+        }
       }
 
       button.delete {
         background: #d44059;
+
+        :disabled {
+          opacity: 0.5;
+          cursor: auto;
+        }
       }
     }
   }

@@ -1,14 +1,13 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
-
 import { Container } from './styles';
-import DatePicker from './DatePicker';
-// import ReactDatePicker from './ReactDatePicker';
+import DatePicker from '../../components/DatePicker';
+import BannerInput from '../../components/BannerInput';
 
 // const schema = null;
 
-export default function Meetup() {
+export default function Meetup({ location }) {
   function handleSubmit(data) {
     // dispatch(signInRequest(email, password));
     console.tron.log(data);
@@ -16,7 +15,11 @@ export default function Meetup() {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={handleSubmit}
+        initialData={location.state ? location.state.event : null}
+      >
+        <BannerInput />
         <Input name="title" type="text" placeholder="Título do meetup" />
         <Input
           name="description"
@@ -24,8 +27,12 @@ export default function Meetup() {
           multiline
           placeholder="Descrição completa"
         />
-        <DatePicker name="date" placeholder="Data do meetup" className="date" />
-
+        <DatePicker
+          name="date"
+          placeholder="Data do meetup"
+          className="date"
+          selectedDate={location.state && location.state.event.date}
+        />
         <Input name="address" type="text" placeholder="Localização" />
         <button type="submit" className="saveButton">
           Salvar
@@ -34,3 +41,20 @@ export default function Meetup() {
     </Container>
   );
 }
+
+Meetup.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      event: PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        image: PropTypes.string,
+        description: PropTypes.string,
+        date: PropTypes.string,
+        address: PropTypes.string,
+        formatedDate: PropTypes.string,
+        isPast: PropTypes.bool,
+      }),
+    }),
+  }).isRequired,
+};
