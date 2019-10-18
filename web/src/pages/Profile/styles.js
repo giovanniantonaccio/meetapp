@@ -19,6 +19,9 @@ export const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
+    margin: 2rem 0 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
 
     input {
       height: 5rem;
@@ -59,8 +62,11 @@ export const Container = styled.div`
       }
     }
 
-    margin: 2rem 0 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
+    span {
+      color: #f94d6a;
+      align-self: flex-start;
+      margin: 0 0 1rem;
+      font-weight: bold;
+    }
   }
 `;

@@ -12,7 +12,9 @@ export function* updateProfile({ payload }) {
     const profile = {
       name,
       email,
-      ...(rest.oldPassword ? rest : {}),
+      ...(rest.oldPassword || rest.password || rest.confirmPassword
+        ? rest
+        : {}),
     };
 
     console.tron.log(profile);
