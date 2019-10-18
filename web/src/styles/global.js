@@ -20,7 +20,7 @@ export default createGlobalStyle`${css`
   html,
   body,
   #root {
-    height: 100%;
+    min-height: 100%;
     font-size: 62.5%;
 
     @media (max-width: 1080px) {
