@@ -66,5 +66,12 @@ export const Container = styled.div`
         background: ${darken(0.04, '#f94d6a')};
       }
     }
+
+    span {
+      color: #f94d6a;
+      align-self: flex-start;
+      margin: 0 0 1rem;
+      font-weight: bold;
+    }
   }
 `;

@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { object, string, date } from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import { Container } from './styles';
 import DatePicker from '../../components/DatePicker';
 import BannerInput from '../../components/BannerInput';
 
-// const schema = null;
+const schema = object().shape({
+  bannerId: string(),
+  title: string().required('Título obrigatório'),
+  description: string().required('Descrição obrigatória'),
+  date: date().required('Data obrigatória'),
+  address: string().required('Localização obrigatória'),
+});
 
 export default function Meetup({ location }) {
   function handleSubmit(data) {
@@ -18,8 +25,9 @@ export default function Meetup({ location }) {
       <Form
         onSubmit={handleSubmit}
         initialData={location.state ? location.state.event : null}
+        schema={schema}
       >
-        <BannerInput />
+        <BannerInput name="bannerId" />
         <Input name="title" type="text" placeholder="Título do meetup" />
         <Input
           name="description"
