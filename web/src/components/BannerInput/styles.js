@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
 
   img {
-    height: 30rem;
+    /* height: 30rem; */
     width: 100%;
     background: rgba(0, 0, 0, 0.2);
   }
@@ -29,6 +29,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 1rem;
 
     svg {
       color: rgba(255, 255, 255, 0.3);
