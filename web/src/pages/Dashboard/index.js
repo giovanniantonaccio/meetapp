@@ -4,40 +4,10 @@ import { parseISO, format, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { Container } from './styles';
 import history from '../../services/history';
-
-const events_list = [
-  {
-    id: 1,
-    title: 'Flutter talks',
-    date: '2019-10-27T15:00:00-04:00',
-    image: 'https://camunda.com/img/events/meetup-example.jpg',
-    description:
-      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
-    address: 'Rua Guilherme Gembala, 260',
-  },
-  {
-    id: 2,
-    title: 'React Native',
-    date: '2019-07-10T15:00:00-04:00',
-    image: 'https://camunda.com/img/events/meetup-example.jpg',
-    description:
-      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
-    address: 'Rua Guilherme Gembala, 260',
-  },
-  {
-    id: 3,
-    title: 'NodeJS',
-    date: '2019-07-10T15:00:00-04:00',
-    image: 'https://camunda.com/img/events/meetup-example.jpg',
-    description:
-      'O Meetup de React Native é um evento que reúne a comunidade de desenvolvimento mobile utilizando React a fim de compartilhar conhecimento. Todos são convidados. Caso queira participar como palestrante do meetup envie um e-mail para organizacao@meetuprn.com.br.',
-    address: 'Rua Guilherme Gembala, 260',
-  },
-];
+import api from '../../services/api';
 
 export default function Dashboard() {
-  console.tron.log(events_list);
-  const [events, setEvents] = useState(events_list);
+  const [events, setEvents] = useState([]);
 
   function handleDetails(event) {
     history.push('/details', { event });
@@ -48,21 +18,24 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    // get events from api
+    async function loadMeetups() {
+      const result = await api.get('/meetups?page=1');
+      const data = result.data.map(event => ({
+        ...event,
+        formatedDate: format(
+          parseISO(event.date),
+          "d 'de' MMMM 'de' yyyy ', às' HH:mm",
+          {
+            locale: pt,
+          }
+        ),
+        isPast: isBefore(parseISO(event.date), new Date()),
+      }));
 
-    const data = events.map(event => ({
-      ...event,
-      formatedDate: format(
-        parseISO(event.date),
-        "d 'de' MMMM 'de' yyyy ', às' HH:mm",
-        {
-          locale: pt,
-        }
-      ),
-      isPast: isBefore(parseISO(event.date), new Date()),
-    }));
+      setEvents(data);
+    }
 
-    setEvents(data);
+    loadMeetups();
   }, []); // eslint-disable-line
 
   return (
@@ -78,7 +51,7 @@ export default function Dashboard() {
         {events.map(event => (
           <li key={event.id}>
             <div>
-              <strong>{event.title}</strong>
+              <strong>{event.name}</strong>
               <p>{event.formatedDate}</p>
             </div>
             <MdKeyboardArrowRight onClick={() => handleDetails(event)} />

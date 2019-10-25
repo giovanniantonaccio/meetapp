@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import {
   startOfHour,
   parseISO,
@@ -23,21 +22,22 @@ class MeetupController {
       return res.status(400).json({ error: 'Page must be informed' });
     }
 
-    /**
-     * Check date
-     */
-    const parsedDate = parseISO(date);
-    if (!date) {
-      return res.status(400).json({ error: 'Date must be informed' });
+    // /**
+    //  * Check date
+    //  */
+    const filters = {
+      user_id: req.userId,
+    };
+
+    if (date) {
+      const parsedDate = parseISO(date);
+      filters.date = {
+        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+      };
     }
 
     const meetups = await Meetup.findAll({
-      where: {
-        user_id: req.userId,
-        date: {
-          [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-        },
-      },
+      where: filters,
       order: ['date'],
       limit: pagination_limit,
       offset: (page - 1) * pagination_limit,
@@ -57,6 +57,30 @@ class MeetupController {
     });
 
     return res.json(meetups);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const meetupInfo = await Meetup.findOne({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: File,
+          as: 'banner',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
+    });
+
+    return res.json(meetupInfo);
   }
 
   async store(req, res) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useField } from '@rocketseat/unform';
 import { MdCameraAlt } from 'react-icons/md';
 import api from '../../services/api';
@@ -8,13 +8,10 @@ import { Container } from './styles';
 
 export default function AvatarInput() {
   const { defaultValue, registerField } = useField('banner');
-  const provider = useSelector(state => state.user.profile);
+  const { error } = useField('banner_id');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
-  // const [preview, setPreview] = useState(
-  //   'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-  // );
   const ref = useRef();
 
   useEffect(() => {
@@ -32,8 +29,12 @@ export default function AvatarInput() {
     data.append('file', e.target.files[0]);
 
     const response = await api.post('files', data);
+    console.tron.log(response);
 
     const { id, url } = response.data;
+
+    console.tron.log(id);
+    console.tron.log(url);
 
     setFile(id);
     setPreview(url);
@@ -59,6 +60,8 @@ export default function AvatarInput() {
           ref={ref}
         />
       </label>
+
+      {error && <span>{error}</span>}
     </Container>
   );
 }
