@@ -12,11 +12,37 @@ services:
     networks:
       - meetapp_network
     depends_on:
+      - redis
       - postgres
     volumes:
       - .:/home/node/api
       - /home/node/api/node_modules
 
+  queue:
+    build:
+      dockerfile: ./docker/queue.dockerfile
+      context: .
+    image: meetapp/queue
+    container_name: meetapp-queue
+    ports:
+      - 3335:3333
+    networks:
+      - meetapp_network
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+
+  redis:
+    image: redis:alpine
+    container_name: meetapp-redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - meetapp_network
   postgres:
     image: postgres
     container_name: meetapp-postgres
