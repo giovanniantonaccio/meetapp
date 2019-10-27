@@ -1,15 +1,15 @@
-// import React from 'react';
+import React from 'react';
 import {
   createAppContainer,
   createSwitchNavigator,
   createBottomTabNavigator,
-  // createStackNavigator,
 } from 'react-navigation';
 
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
 import Meetups from './pages/Meetups';
+import Registrations from './pages/Registrations';
 import Profile from './pages/Profile';
 
 export default (isSigned = false) =>
@@ -23,6 +23,7 @@ export default (isSigned = false) =>
         App: createBottomTabNavigator(
           {
             Meetups,
+            Registrations,
             Profile,
           },
           {
