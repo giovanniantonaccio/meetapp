@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 import Registration from '../models/Registration';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
+import File from '../models/File';
 
 import RegistrationMail from '../jobs/RegistrationMail';
 import Queue from '../../lib/Queue';
@@ -22,11 +23,18 @@ class RegistrationController {
             [Op.gt]: new Date(),
           },
         },
-        include: {
-          model: User,
-          as: 'user',
-          attributes: ['name', 'email'],
-        },
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['name', 'email'],
+          },
+          {
+            model: File,
+            as: 'banner',
+            attributes: ['id', 'path', 'url'],
+          },
+        ],
       },
       order: [[{ model: Meetup, as: 'meetup' }, 'date', 'ASC']],
     });
@@ -130,6 +138,23 @@ class RegistrationController {
     });
 
     return res.json(subscription);
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const registration = await Registration.findByPk(id);
+
+    /**
+     * Check if registration exist
+     */
+    if (!registration) {
+      return res.status(400).json({ error: 'Registration does not exist' });
+    }
+
+    await Registration.destroy({ where: { id } });
+
+    return res.json();
   }
 }
 

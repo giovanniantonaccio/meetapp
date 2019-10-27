@@ -7,7 +7,7 @@
     "dev": "nodemon --legacy-watch src/server.js",
     "build": "sucrase ./src -d ./dist --transforms imports",
     "pretest": "NODE_ENV=test sequelize db:migrate",
-    "test": "NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
     "queue": "nodemon src/queue.js"
   },
@@ -16,6 +16,7 @@
     "bee-queue": "^1.2.2",
     "cors": "^2.8.5",
     "date-fns": "^2.0.0-beta.5",
+    "date-fns-tz": "^1.0.8",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

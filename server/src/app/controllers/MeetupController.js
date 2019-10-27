@@ -5,6 +5,7 @@ import {
   startOfDay,
   endOfDay,
 } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
 import File from '../models/File';
@@ -12,7 +13,7 @@ import User from '../models/User';
 
 class MeetupController {
   async index(req, res) {
-    const { page, date } = req.query;
+    const { page, date, timezone } = req.query;
     const pagination_limit = 10;
 
     /**
@@ -25,19 +26,28 @@ class MeetupController {
     // /**
     //  * Check date
     //  */
-    const filters = {
-      user_id: req.userId,
-    };
-
-    if (date) {
-      const parsedDate = parseISO(date);
-      filters.date = {
-        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-      };
+    if (!date) {
+      return res.status(400).json({ error: 'Date must be informed' });
     }
 
+    // /**
+    //  * Check timezone
+    //  */
+    if (!timezone) {
+      return res.status(400).json({ error: 'Timezone must be informed' });
+    }
+
+    const parsedDate = parseISO(date);
+
+    const initialDate = zonedTimeToUtc(startOfDay(parsedDate), timezone);
+    const finalDate = zonedTimeToUtc(endOfDay(parsedDate), timezone);
+
     const meetups = await Meetup.findAll({
-      where: filters,
+      where: {
+        date: {
+          [Op.between]: [initialDate, finalDate],
+        },
+      },
       order: ['date'],
       limit: pagination_limit,
       offset: (page - 1) * pagination_limit,

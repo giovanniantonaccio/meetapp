@@ -42,6 +42,7 @@ routes.delete('/meetups/:id', MeetupController.delete);
 
 routes.get('/registrations/', RegistrationController.index);
 routes.post('/registrations/:id', RegistrationController.store);
+routes.delete('/registrations/:id', RegistrationController.delete);
 
 routes.get('/schedule', ScheduleController.index);
 
