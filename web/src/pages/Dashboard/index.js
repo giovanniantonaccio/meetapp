@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadMeetups() {
-      const result = await api.get('/meetups?page=1');
+      const result = await api.get('/schedule');
       const data = result.data.map(event => ({
         ...event,
         formatedDate: format(
